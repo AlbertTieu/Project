@@ -37,8 +37,8 @@ public class SingleLoadedGun extends Gun
 
 	public SingleLoadedGun(int initDamage, 
 				 		   int initAttackRate, 
-				 		   double initHeadshotMulti, 
-				 		   String initName, 
+				 		   int initHitCount,
+				 		   double initHeadshotMulti,
 				 		   double initReloadTime, 
 				 		   int initMagazineSize, 
 				 		   double initPenMulti,
@@ -46,7 +46,7 @@ public class SingleLoadedGun extends Gun
 				 		   double initTimePerCycle,
 				 		   double initReloadEngageDisengage)
 	{
-		super(initDamage, initAttackRate, initHeadshotMulti, initName, initReloadTime, initMagazineSize, initPenMulti);
+		super(initDamage, initAttackRate, initHitCount, initHeadshotMulti, initReloadTime, initMagazineSize, initPenMulti);
 		roundsPerCycle = initRoundsPerCycle;
 		timePerCycle = initTimePerCycle;
 		reloadEngageDisengage = initReloadEngageDisengage;

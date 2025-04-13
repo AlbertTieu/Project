@@ -35,14 +35,14 @@ public class MagazineLoadedGun extends Gun
 
 	public MagazineLoadedGun(int initDamage, 
 			   				 int initAttackRate, 
+			   				 int initHitCount, 
 			   				 double initHeadshotMulti, 
-			   				 String initName, 
 			   				 double initReloadTime, 
 			   				 int initMagazineSize, 
 			   				 double initPenMulti,
 			   				 double initTacReloadTime)
 	{
-		super(initDamage, initAttackRate, initHeadshotMulti, initName, initReloadTime, initMagazineSize, initPenMulti);
+		super(initDamage, initAttackRate, initHitCount, initHeadshotMulti, initReloadTime, initMagazineSize, initPenMulti);
 		tacReloadTime = initTacReloadTime;
 	}
 	

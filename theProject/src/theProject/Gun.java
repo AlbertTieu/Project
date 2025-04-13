@@ -37,13 +37,13 @@ public class Gun extends Weapon
 
 	public Gun(int initDamage, 
 			   int initAttackRate, 
+			   int initHitCount,
 			   double initHeadshotMulti, 
-			   String initName, 
 			   double initReloadTime, 
 			   int initMagazineSize,
 			   double initPenMulti)
 	{
-		super(initDamage, initAttackRate, initHeadshotMulti, initName);
+		super(initDamage, initAttackRate, initHitCount, initHeadshotMulti);
 		reloadTime = initReloadTime;
 		magazineSize = initMagazineSize;
 		penMulti = initPenMulti;

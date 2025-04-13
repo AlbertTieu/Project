@@ -49,6 +49,11 @@ public class Enemy
 
 	// getters
 
+	public String getName()
+	{
+		return name;
+	}
+	
 	public int getHealth()
 	{
 		return health;
@@ -56,7 +61,25 @@ public class Enemy
 	
 	// setters
 
+	public void setHealth(int newHealth)
+	{
+		health = newHealth;
+	}
+	
 	// misc
+	
+	public int takeDamage(int damageTaken)
+	{
+		setHealth(health - damageTaken);
+		if(health < 0)
+		{
+			int actualDamageTaken = damageTaken + health;
+			health = 0;
+			return actualDamageTaken;
+		}
+		
+		return damageTaken;
+	}
 	
 	public String toString()
 	{

@@ -31,8 +31,8 @@ public class Weapon
 	
 	private int damage;				// a Weapon has-a damage value
 	private int attackRate;			// a Weapon has-an attack rate
+	private int hitCount;
 	private double headshotMulti;	// a Weapon has-a headshot multiplier
-	private String name;			// a Weapon has-an identifying name
 	
 	// constructors
 	
@@ -40,19 +40,19 @@ public class Weapon
 	{
 		damage = 0;
 		attackRate = 0;
-		headshotMulti = 1;
-		name = "Weapon";
+		hitCount = 1;
+		headshotMulti = 1;;
 	}
 	
 	public Weapon(int initDamage, 
 				  int initAttackRate, 
-				  double initHeadshotMulti, 
-				  String initName)
+				  int initHitCount,
+				  double initHeadshotMulti)
 	{
 		damage = initDamage;
 		attackRate = initAttackRate;
+		hitCount = initHitCount;
 		headshotMulti = initHeadshotMulti;
-		name = initName;
 	}
 	
 	// methods
@@ -69,19 +69,25 @@ public class Weapon
 		return attackRate;
 	}
 	
+	public int getHitCount()
+	{
+		return hitCount;
+	}
+	
 	public double getHeadshotMulti()
 	{
 		return headshotMulti;
-	}
-	
-	public String getName()
-	{
-		return name;
 	}
 	
 	// setters
 	
 	// misc
 	
+	public String toString()
+	{
+		return  "Damage: " + damage + '\n' +
+				"RPM: " + attackRate + '\n' + 
+				"Headshot: " + headshotMulti + '\n';
+	}
 	
 }

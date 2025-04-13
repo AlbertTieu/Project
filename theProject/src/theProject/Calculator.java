@@ -19,7 +19,8 @@
 */
 package theProject;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Hashtable;
 
 /**
  * Purpose: The reponsibility of Calculator is ...
@@ -32,17 +33,17 @@ public class Calculator
 	// fields
 	
 	private Weapon weapon;
-	private ArrayList<Enemy> enemies;
+	private LinkedList<Enemy> enemies;
 	
 	// constructors
 
 	public Calculator()
 	{
 		weapon = null;
-		enemies = new ArrayList<Enemy>();
+		enemies = new LinkedList<Enemy>();
 	}
 	
-	public Calculator(Weapon initWeapon, ArrayList<Enemy> initEnemies)
+	public Calculator(Weapon initWeapon, LinkedList<Enemy> initEnemies)
 	{
 		weapon = initWeapon;
 		enemies = initEnemies;
@@ -57,7 +58,7 @@ public class Calculator
 		return weapon;
 	}
 	
-	public ArrayList<Enemy> getEnemies()
+	public LinkedList<Enemy> getEnemies()
 	{
 		return enemies;
 	}
@@ -69,7 +70,7 @@ public class Calculator
 		weapon = newWeapon;
 	}
 	
-	public void setEnemies(ArrayList<Enemy> newEnemies)
+	public void setEnemies(LinkedList<Enemy> newEnemies)
 	{
 		enemies = newEnemies;
 	}
@@ -83,16 +84,61 @@ public class Calculator
 		main.addEnemy(new Enemy("Charger", 70));
 		main.addEnemy(new Enemy("Smasher", 1000));
 		
-		ArrayList<Enemy> enemyList = main.getEnemies();
+		Hashtable<String, Weapon> weaponTable = new Hashtable<String, Weapon>();
+		
+		weaponTable.put("M4A1", new MagazineLoadedGun(25, 800, 1, 1.5, 3.0, 300, 1.0, 2.6));
+		
+		main.setWeapon(weaponTable.get("M4A1"));
+		
+		System.out.println(main.getWeapon().toString());
+		
+		LinkedList<Enemy> enemyList = main.getEnemies();
 		for(Enemy e : enemyList)
 		{
 			System.out.println(e.toString());
 		}
+		
+		main.attackUntilClear(main.getWeapon());
 	}
 	
 	public void addEnemy(Enemy enemy)
 	{
 		enemies.add(enemy);
+	}
+	
+	public int attack(Weapon theWeapon)
+	{
+		double damageMulti = 1.0;
+		int hits = theWeapon.getHitCount();
+		int totalDamage = 0;
+		
+		for(int i = 0; i < enemies.size(); i++)
+		{
+			if(hits > 0)
+			{
+				Enemy theEnemy = enemies.get(i);
+				int damage = theEnemy.takeDamage( (int) (theWeapon.getDamage() * damageMulti));
+				totalDamage = totalDamage + damage;
+				System.out.println(theEnemy.getName() + " took " + damage + " damage!" + " (" + (theEnemy.getHealth() + damage) + " -> " + theEnemy.getHealth() + ")");
+//				damageMulti = theWeapon.getPenMulti() * damageMulti;
+				if(theEnemy.getHealth() == 0)
+				{
+					System.out.println(theEnemy.getName() + " has died!");
+					enemies.remove(i);
+				}
+				hits--;
+			}
+		}
+		return totalDamage;
+		
+	}
+	
+	public void attackUntilClear(Weapon theWeapon)
+	{
+		while(enemies.size() > 0)
+		{
+			attack(theWeapon);
+		}
 	}
 	
 }
