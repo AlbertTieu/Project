@@ -33,7 +33,8 @@ public class MagazineLoadedGun extends Gun
 
 	// constructors
 
-	public MagazineLoadedGun(int initDamage, 
+	public MagazineLoadedGun(String initName,
+							 int initDamage, 
 			   				 int initAttackRate, 
 			   				 int initHitCount, 
 			   				 double initHeadshotMulti, 
@@ -42,7 +43,7 @@ public class MagazineLoadedGun extends Gun
 			   				 double initPenMulti,
 			   				 double initTacReloadTime)
 	{
-		super(initDamage, initAttackRate, initHitCount, initHeadshotMulti, initReloadTime, initMagazineSize, initPenMulti);
+		super(initName, initDamage, initAttackRate, initHitCount, initHeadshotMulti, initReloadTime, initMagazineSize, initPenMulti);
 		tacReloadTime = initTacReloadTime;
 	}
 	
@@ -53,6 +54,16 @@ public class MagazineLoadedGun extends Gun
 	public double getTacReloadTime()
 	{
 		return tacReloadTime;
+	}
+	
+	@Override
+	public double getReloadTime()
+	{
+		if(getCurrentMagazine() > 0)
+		{
+			return tacReloadTime;
+		}
+		return super.getReloadTime();
 	}
 	
 	// setters

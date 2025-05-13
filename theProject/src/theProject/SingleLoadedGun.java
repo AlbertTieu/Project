@@ -29,13 +29,15 @@ public class SingleLoadedGun extends Gun
 {
 	// fields
 
-	private int roundsPerCycle;
-	private double timePerCycle;
+	
+	private int roundsPerLoad;
+	private double timePerLoad;
 	private double reloadEngageDisengage;
 	
 	// constructors
 
-	public SingleLoadedGun(int initDamage, 
+	public SingleLoadedGun(String initName,
+						   int initDamage, 
 				 		   int initAttackRate, 
 				 		   int initHitCount,
 				 		   double initHeadshotMulti,
@@ -46,9 +48,9 @@ public class SingleLoadedGun extends Gun
 				 		   double initTimePerCycle,
 				 		   double initReloadEngageDisengage)
 	{
-		super(initDamage, initAttackRate, initHitCount, initHeadshotMulti, initReloadTime, initMagazineSize, initPenMulti);
-		roundsPerCycle = initRoundsPerCycle;
-		timePerCycle = initTimePerCycle;
+		super(initName, initDamage, initAttackRate, initHitCount, initHeadshotMulti, initReloadTime, initMagazineSize, initPenMulti);
+		roundsPerLoad = initRoundsPerCycle;
+		timePerLoad = initTimePerCycle;
 		reloadEngageDisengage = initReloadEngageDisengage;
 	}
 	
@@ -56,17 +58,27 @@ public class SingleLoadedGun extends Gun
 
 	public int getRoundsLoaded()
 	{
-		return roundsPerCycle;
+		return roundsPerLoad;
 	}
 	
 	public double getTimePerCycle()
 	{
-		return timePerCycle;
+		return timePerLoad;
 	}
 	
 	public double getReloadEngageDisengage()
 	{
 		return reloadEngageDisengage;
+	}
+	
+	@Override
+	public double getReloadTime()
+	{
+		if (getCurrentMagazine() > 0)
+		{
+			return reloadEngageDisengage + ( ((getMagazineSize() - getCurrentMagazine() ) / roundsPerLoad) * timePerLoad);
+		}
+		return super.getReloadTime();
 	}
 	
 	// getters

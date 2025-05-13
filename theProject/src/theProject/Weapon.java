@@ -29,6 +29,7 @@ public class Weapon
 {
 	// fields
 	
+	private String name;
 	private int damage;				// a Weapon has-a damage value
 	private int attackRate;			// a Weapon has-an attack rate
 	private int hitCount;
@@ -38,17 +39,20 @@ public class Weapon
 	
 	public Weapon()
 	{
+		name = "?";
 		damage = 0;
 		attackRate = 0;
 		hitCount = 1;
 		headshotMulti = 1;;
 	}
 	
-	public Weapon(int initDamage, 
+	public Weapon(String initName,
+				  int initDamage, 
 				  int initAttackRate, 
 				  int initHitCount,
 				  double initHeadshotMulti)
 	{
+		name = initName;
 		damage = initDamage;
 		attackRate = initAttackRate;
 		hitCount = initHitCount;
@@ -58,6 +62,11 @@ public class Weapon
 	// methods
 	
 	// getters
+	
+	public String getName()
+	{
+		return name;
+	}
 	
 	public int getDamage()
 	{
@@ -85,9 +94,10 @@ public class Weapon
 	
 	public String toString()
 	{
-		return  "Damage: " + damage + '\n' +
+		return  "Weapon: " + name + '\n' +
+				"Damage: " + damage + '\n' +
 				"RPM: " + attackRate + '\n' + 
-				"Headshot: " + headshotMulti + '\n';
+				"Headshot: x" + headshotMulti + '\n';
 	}
 	
 }

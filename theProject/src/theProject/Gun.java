@@ -30,12 +30,14 @@ public class Gun extends Weapon
 	// fields
 	
 	private double reloadTime;
+	private int currentMagazine;
 	private int magazineSize;
 	private double penMulti;
 	
 	// constructors
 
-	public Gun(int initDamage, 
+	public Gun(String initName,
+			   int initDamage, 
 			   int initAttackRate, 
 			   int initHitCount,
 			   double initHeadshotMulti, 
@@ -43,9 +45,10 @@ public class Gun extends Weapon
 			   int initMagazineSize,
 			   double initPenMulti)
 	{
-		super(initDamage, initAttackRate, initHitCount, initHeadshotMulti);
+		super(initName, initDamage, initAttackRate, initHitCount, initHeadshotMulti);
 		reloadTime = initReloadTime;
 		magazineSize = initMagazineSize;
+		currentMagazine = magazineSize;
 		penMulti = initPenMulti;
 	}
 	
@@ -56,6 +59,11 @@ public class Gun extends Weapon
 	public double getReloadTime()
 	{
 		return reloadTime;
+	}
+	
+	public int getCurrentMagazine()
+	{
+		return currentMagazine;
 	}
 	
 	public int getMagazineSize()
@@ -69,7 +77,17 @@ public class Gun extends Weapon
 	}
 	
 	// setters
+	
+	public void setCurrentMagazine(int newMag)
+	{
+		currentMagazine = newMag;
+	}
 
 	// misc
+	
+	public void reload()
+	{
+		currentMagazine = magazineSize;
+	}
 	
 }
