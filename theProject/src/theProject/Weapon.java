@@ -39,11 +39,11 @@ public class Weapon
 	
 	public Weapon()
 	{
-		name = "?";
+		name = "None";
 		damage = 0;
 		attackRate = 0;
-		hitCount = 1;
-		headshotMulti = 1;;
+		hitCount = 0;
+		headshotMulti = 0;
 	}
 	
 	public Weapon(String initName,

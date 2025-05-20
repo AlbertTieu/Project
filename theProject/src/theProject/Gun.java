@@ -36,6 +36,18 @@ public class Gun extends Weapon
 	
 	// constructors
 
+	/**
+	 * Purpose: 
+	 */
+	public Gun()
+	{
+		super();
+		reloadTime = 0;
+		currentMagazine = 0;
+		magazineSize = 0;
+		penMulti = 0;
+	}
+	
 	public Gun(String initName,
 			   int initDamage, 
 			   int initAttackRate, 
@@ -55,7 +67,7 @@ public class Gun extends Weapon
 	// methods
 
 	// getters
-	
+
 	public double getReloadTime()
 	{
 		return reloadTime;
@@ -88,6 +100,15 @@ public class Gun extends Weapon
 	public void reload()
 	{
 		currentMagazine = magazineSize;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return super.toString() +
+				"Reload time: " + getReloadTime() + '\n' +
+				"Magazine size: " + getMagazineSize() + '\n' +
+				"Penetration multi: x" + getPenMulti() + '\n';
 	}
 	
 }
