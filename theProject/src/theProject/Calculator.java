@@ -41,6 +41,7 @@ public class Calculator
 	
 	private Gun gun;
 	private LinkedList<Enemy> enemies;
+	Hashtable<String, Gun> gunTable = new Hashtable<String, Gun>();
 	
 	DecimalFormat CALCULATED_FORMAT = new DecimalFormat("#.##");
 	
@@ -48,8 +49,12 @@ public class Calculator
 
 	public Calculator()
 	{
+		gunTable.put("None", new Gun());
+		gunTable.put("M4A1", new MagazineLoadedGun("M4A1", 25, 800, 2, 1.5, 3.0, 30, 0.5, 2.6));
+		gunTable.put("Winchester 1873", new SingleLoadedGun("Winchester 1873", 25, 300, 3, 5.4, 4.4, 8, 0.75, 1, 0.425, 1.0));
 		gun = new Gun();
 		enemies = new LinkedList<Enemy>();
+		enemies.add(new Enemy("Slasher", 100));
 	}
 	
 	public Calculator(Gun initGun, LinkedList<Enemy> initEnemies)
@@ -90,6 +95,11 @@ public class Calculator
 	public Gun getGun()
 	{
 		return gun;
+	}
+	
+	public Hashtable<String, Gun> getGunTable()
+	{
+		return gunTable;
 	}
 	
 	public LinkedList<Enemy> getEnemies()
@@ -224,6 +234,14 @@ public class Calculator
 		System.out.println("Elapsed time: " + CALCULATED_FORMAT.format(elapsedTime) + 's');
 		
 		double DPS = totalDamage/elapsedTime;
+		System.out.println(DPS);
+		
+		System.out.println(getGun().toString());
+		
+		System.out.println(getHeadshotChance());
+		System.out.println(getHitChance());
+		System.out.println(getReloadAt());
+		
 		return DPS;
 	}
 	
@@ -244,12 +262,7 @@ public class Calculator
 		main.addEnemy(new Enemy("Charger", 70));
 		main.addEnemy(new Enemy("Smasher", 1000));
 		
-		Hashtable<String, Gun> gunTable = new Hashtable<String, Gun>();
-		
-		gunTable.put("M4A1", new MagazineLoadedGun("M4A1", 25, 800, 2, 1.5, 3.0, 30, 0.5, 2.6));
-		gunTable.put("Winchester 1873", new SingleLoadedGun("Winchester 1873", 25, 300, 3, 5.4, 4.4, 8, 1.0, 1, 0.425, 1.0));
-		
-		main.setGun(gunTable.get("M4A1"));
+		main.setGun(main.getGunTable().get("M4A1"));
 		
 		System.out.println(main.getGun().toString());
 		

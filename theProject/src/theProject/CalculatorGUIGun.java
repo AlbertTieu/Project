@@ -29,10 +29,13 @@ import java.util.*;
  *
  * CalculatorGUIGun is ...
  */
-public class CalculatorGUIGun extends JFrame implements ActionListener
+public class CalculatorGUIGun extends JFrame
 {
 	
 	private Calculator calculator;
+
+	JComboBox<String> gunsComboBox;
+	private JTextArea gunInfoArea;
 	
 	private String[] gunsList = {
 			"None",
@@ -46,26 +49,34 @@ public class CalculatorGUIGun extends JFrame implements ActionListener
 	{
 		calculator = new Calculator();
 		
-		JComboBox<String> gunsComboBox;
-		JLabel gunSelectLabel = new JLabel("Select Gun");
-		gunsComboBox = new JComboBox<String>(gunsList);
-		JLabel selectedGunLabel = new JLabel(gunsList[0] + " selected");
-		
 		this.setLayout(new BorderLayout());
 		
 		// GUN PANEL \\
+
+
+		JLabel gunSelectLabel = new JLabel("Select Gun");
+		
+		gunsComboBox = new JComboBox<String>(gunsList);
+		gunsComboBox.addActionListener(new ComboBoxListener(calculator, this, gunsComboBox));
+		
+		JPanel gunPanel = new JPanel();
+		gunPanel.setLayout(new BorderLayout());
 		
 		JPanel gunSelectPanel = new JPanel();
 		gunSelectPanel.setLayout(new FlowLayout());
 		gunSelectPanel.add(gunSelectLabel);
 		gunSelectPanel.add(gunsComboBox);
-		gunSelectPanel.add(selectedGunLabel);
 		
-		this.add(gunSelectPanel, BorderLayout.NORTH);
+		gunInfoArea = new JTextArea(calculator.getGun().toString());
+		
+		gunInfoArea.setEditable(false);
+		
+		gunPanel.add(gunSelectPanel, BorderLayout.NORTH);
+		gunPanel.add(gunInfoArea, BorderLayout.CENTER);
+		
+		this.add(gunPanel, BorderLayout.NORTH);
 		
 		// SCENARIO PANEL \\
-		JTextArea gunInfoArea = new JTextArea(calculator.getGun().toString());
-		gunInfoArea.setEditable(false);
 		
 		JPanel scenarioPanel = new JPanel();
 		scenarioPanel.setLayout(new GridLayout(3,2));
@@ -79,7 +90,6 @@ public class CalculatorGUIGun extends JFrame implements ActionListener
 		JLabel reloadLabel = new JLabel("Reload at (rounds in magazine)");
 		JTextField reloadAt = new JTextField();
 		
-		scenarioPanel.add(gunInfoArea);
 		scenarioPanel.add(headshotLabel);
 		scenarioPanel.add(headshotChance);
 		scenarioPanel.add(accuracyLabel);
@@ -93,6 +103,7 @@ public class CalculatorGUIGun extends JFrame implements ActionListener
 		JPanel caclulatePanel = new JPanel();
 		caclulatePanel.setLayout(new FlowLayout());
 		JButton calculateButton = new JButton("Calculate DPS");
+		calculateButton.addActionListener(new ButtonListener(calculator, this, calculateButton, headshotChance, hitChance, reloadAt));
 		caclulatePanel.add(calculateButton);
 		
 		this.add(caclulatePanel, BorderLayout.SOUTH);
@@ -105,6 +116,8 @@ public class CalculatorGUIGun extends JFrame implements ActionListener
 	public void update()
 	{
 		
+		
+		gunInfoArea.setText(calculator.getGun().toString());
 	}
 	
 	public static void main(String[] args)
@@ -112,9 +125,4 @@ public class CalculatorGUIGun extends JFrame implements ActionListener
 		CalculatorGUIGun main = new CalculatorGUIGun();
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		update();
-	}
 }
