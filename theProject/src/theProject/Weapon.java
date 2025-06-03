@@ -92,6 +92,19 @@ public class Weapon
 	
 	// misc
 	
+	public boolean equals(Weapon otherWeapon)
+	{
+		if(getName().equals(otherWeapon.getName()) &&
+				getDamage() == otherWeapon.getDamage() &&
+				getAttackRate() == otherWeapon.getAttackRate() &&
+				getHitCount() == otherWeapon.getHitCount() &&
+				getHeadshotMulti() == otherWeapon.getHeadshotMulti())
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	public String toString()
 	{
 		return  "Weapon: " + name + '\n' +

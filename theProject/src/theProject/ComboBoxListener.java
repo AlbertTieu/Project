@@ -48,8 +48,15 @@ public class ComboBoxListener implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		String gunName = String.valueOf(combo.getSelectedItem());
+		if(gunName.equals("Import/Export"))
+		{
+			new ImportExportGUI(gunGUI);
+		}
+		else
+		{
 		calculator.setGun(calculator.getGunTable().get(gunName));
 		gunGUI.update();
+		}
 	}
 	
 }

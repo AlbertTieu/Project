@@ -102,6 +102,18 @@ public class Gun extends Weapon
 		currentMagazine = magazineSize;
 	}
 	
+	public boolean equals(Gun otherGun)
+	{
+		if(super.equals(otherGun) &&
+				getReloadTime() == otherGun.getReloadTime() &&
+				getMagazineSize() == otherGun.getMagazineSize() &&
+				getPenMulti() == otherGun.getPenMulti())
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString()
 	{

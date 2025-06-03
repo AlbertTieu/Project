@@ -31,18 +31,29 @@ public class Enemy
 
 	private String name;
 	private int health;
+	private int maxHealth;
 	
 	// constructors
 
 	public Enemy()
 	{
-		health = 100;
+		name = "Testing Dummy";
+		maxHealth = 999999;
+		health = maxHealth;
 	}
 	
 	public Enemy(String initName, int initHealth)
 	{
 		name = initName;
-		health = initHealth;
+		maxHealth = initHealth;
+		health = maxHealth;
+	}
+	
+	public Enemy(Enemy theEnemy)
+	{
+		name = theEnemy.getName();
+		maxHealth = theEnemy.getMaxHealth();
+		health = maxHealth;
 	}
 	
 	// methods
@@ -57,6 +68,11 @@ public class Enemy
 	public int getHealth()
 	{
 		return health;
+	}
+	
+	public int getMaxHealth()
+	{
+		return maxHealth;
 	}
 	
 	// setters
@@ -83,7 +99,7 @@ public class Enemy
 	
 	public String toString()
 	{
-		return name + ": " + health;
+		return name + ": " + health + '/' + maxHealth;
 	}
 	
 }

@@ -53,10 +53,34 @@ public class ButtonListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		calculator.setHeadshotChance(Integer.valueOf(headshotField.getText()));
-		calculator.setHitChance(Integer.valueOf(hitField.getText()));
-		calculator.setReloadAt(Integer.valueOf(reloadField.getText()));
-		calculator.shootTacticalUntilClear(calculator.getGun(), calculator.getReloadAt());
-		gunGUI.update();
+		if(calculator.getGun().equals(new Gun()))
+		{
+			JOptionPane.showMessageDialog(gunGUI, "Please select a gun.");
+		}
+		else
+		{
+		try
+		{
+			calculator.setHeadshotChance(Integer.valueOf(headshotField.getText()));
+			calculator.setHitChance(Integer.valueOf(hitField.getText()));
+			calculator.setReloadAt(Integer.valueOf(reloadField.getText()));
+			
+			JOptionPane.showMessageDialog(gunGUI, "simulated DPS: " + calculator.shootTacticalUntilClear(calculator.getGun(), calculator.getReloadAt()));
+			gunGUI.update();
+		}
+		catch(NumberFormatException numberError)
+		{
+			JOptionPane.showMessageDialog(gunGUI, "One of the scenario fields has an invalid input.");
+		}
+//		catch (Exception error)
+//		{
+//			System.out.println("Something bad has happened");
+//		}
+		finally
+		{
+			
+		}
+		}
+		
 	}
 }

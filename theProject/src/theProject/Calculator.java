@@ -52,9 +52,10 @@ public class Calculator
 		gunTable.put("None", new Gun());
 		gunTable.put("M4A1", new MagazineLoadedGun("M4A1", 25, 800, 2, 1.5, 3.0, 30, 0.5, 2.6));
 		gunTable.put("Winchester 1873", new SingleLoadedGun("Winchester 1873", 25, 300, 3, 5.4, 4.4, 8, 0.75, 1, 0.425, 1.0));
+		gunTable.put("Import/Export", new Gun());
 		gun = new Gun();
 		enemies = new LinkedList<Enemy>();
-		enemies.add(new Enemy("Slasher", 100));
+		enemies.add(new Enemy());
 	}
 	
 	public Calculator(Gun initGun, LinkedList<Enemy> initEnemies)
@@ -146,6 +147,21 @@ public class Calculator
 	
 	// misc
 	
+	public void addGun(String name, Gun theGun)
+	{
+		gunTable.put(name, theGun);
+	}
+	
+	public void reset()
+	{
+		elapsedTime = 0;
+		totalDamage = 0;
+		for(Enemy enemy : enemies)
+		{
+			enemy.setHealth(enemy.getMaxHealth());
+		}
+	}
+	
 	public void addEnemy(Enemy enemy)
 	{
 		enemies.add(enemy);
@@ -211,6 +227,12 @@ public class Calculator
 	
 	public double shootTacticalUntilClear(Gun theGun, int reloadAt)
 	{
+		LinkedList<Enemy> enemiesSave = new LinkedList<Enemy>();
+		for(Enemy e : enemies)
+		{
+			enemiesSave.add(new Enemy(e));
+		}
+		
 		while(enemies.size() > 0)
 		{
 			if(theGun.getCurrentMagazine() > reloadAt)
@@ -228,6 +250,7 @@ public class Calculator
 				theGun.reload();
 				System.out.println("Reloading!" + '\n' + "Time: " + reloadingTime + '\n');
 			}
+			
 		}
 		
 		System.out.println("Damage dealt: " + totalDamage);
@@ -241,6 +264,10 @@ public class Calculator
 		System.out.println(getHeadshotChance());
 		System.out.println(getHitChance());
 		System.out.println(getReloadAt());
+		
+		enemies = enemiesSave;
+		
+		reset();
 		
 		return DPS;
 	}

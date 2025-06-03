@@ -34,14 +34,10 @@ public class CalculatorGUIGun extends JFrame
 	
 	private Calculator calculator;
 
-	JComboBox<String> gunsComboBox;
+	private JComboBox<String> gunsComboBox;
 	private JTextArea gunInfoArea;
 	
-	private String[] gunsList = {
-			"None",
-			"M4A1",
-			"Winchester 1873"
-	};
+	private String[] gunsList;
 	
 
 	
@@ -53,12 +49,22 @@ public class CalculatorGUIGun extends JFrame
 		
 		// GUN PANEL \\
 
-
 		JLabel gunSelectLabel = new JLabel("Select Gun");
+		
+		Object[] toConvert = calculator.getGunTable().keySet().toArray();
+		gunsList = new String[toConvert.length];
+		int index = 0;
+		for(Object convertee : toConvert)
+		{
+			gunsList[index] = String.valueOf(convertee);
+			index++;
+		}
 		
 		gunsComboBox = new JComboBox<String>(gunsList);
 		gunsComboBox.addActionListener(new ComboBoxListener(calculator, this, gunsComboBox));
 		
+		calculator.setGun(calculator.getGunTable().get(String.valueOf(gunsComboBox.getSelectedItem())));
+
 		JPanel gunPanel = new JPanel();
 		gunPanel.setLayout(new BorderLayout());
 		
@@ -113,9 +119,42 @@ public class CalculatorGUIGun extends JFrame
 		setVisible(true);									// shows the GUI
 	}
 	
+	public Calculator getCalculator()
+	{
+		return calculator;
+	}
+	
+	public void setGunsList(String[] newList)
+	{
+		gunsList = newList;
+	}
+	
+	public String[] getGunsList()
+	{
+		return gunsList;
+	}
+	
+	public JComboBox<String> getComboBox()
+	{
+		return gunsComboBox;
+	}
+	
 	public void update()
 	{
+
+//		Object[] toConvert = calculator.getGunTable().keySet().toArray();
+//		gunsList = new String[toConvert.length];
+//		int index = 0;
+//		for(Object convertee : toConvert)
+//		{
+//			gunsList[index] = String.valueOf(convertee);
+//			index++;
+//		}
+//		
+//		DefaultComboBoxModel<String> gunsListModel = new DefaultComboBoxModel<String>(gunsList);
+//		gunsComboBox.setModel(gunsListModel);
 		
+		calculator.setGun(calculator.getGunTable().get(String.valueOf(gunsComboBox.getSelectedItem())));
 		
 		gunInfoArea.setText(calculator.getGun().toString());
 	}
